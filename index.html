@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Rock Paper Roshambo</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f7f9fc;
+      color: #333;
+      text-align: center;
+      padding: 30px;
+    }
+    h1 {
+      color: #4a4aef;
+    }
+    .choices {
+      margin: 20px 0;
+    }
+    .choice-btn {
+      font-size: 40px;
+      cursor: pointer;
+      margin: 10px;
+      padding: 10px 20px;
+      border: none;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      transition: transform 0.2s;
+    }
+    .choice-btn:hover {
+      transform: scale(1.1);
+      background: #e0f0ff;
+    }
+    .results {
+      margin-top: 30px;
+      font-size: 20px;
+    }
+    .highlight {
+      font-weight: bold;
+      color: #d9534f;
+    }
+    .scoreboard {
+      margin-top: 20px;
+      font-size: 18px;
+    }
+
+    /* Toast Styles */
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #4a4aef;
+      color: white;
+      padding: 14px 24px;
+      border-radius: 8px;
+      font-size: 16px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+      z-index: 1000;
+    }
+    .toast a {
+      color: #ffeb3b;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <h1>Rock Paper Roshambo ✊📄✂️</h1>
+  <p>Make your move:</p>
+  <div class="choices">
+    <button class="choice-btn" onclick="play('rock')">✊</button>
+    <button class="choice-btn" onclick="play('paper')">📄</button>
+    <button class="choice-btn" onclick="play('scissors')">✂️</button>
+  </div>
+
+  <div class="results" id="results"></div>
+  <div class="scoreboard" id="scoreboard">Player: 0 | Computer: 0</div>
+
+  <!-- Toast Message -->
+  <div class="toast">
+    Check out <a href="https://certificationexams.guru" target="_blank">certificationexams.guru</a> for free AWS Certification Practice Exams!
+  </div>
+
+  <script>
+    const options = ['rock', 'paper', 'scissors'];
+    let playerScore = 0;
+    let computerScore = 0;
+
+    function play(playerChoice) {
+      const computerChoice = options[Math.floor(Math.random() * 3)];
+      let result = '';
+
+      if (playerChoice === computerChoice) {
+        result = "It's a tie!";
+      } else if (
+        (playerChoice === 'rock' && computerChoice === 'scissors') ||
+        (playerChoice === 'paper' && computerChoice === 'rock') ||
+        (playerChoice === 'scissors' && computerChoice === 'paper')
+      ) {
+        result = `<span class="highlight">You win!</span>`;
+        playerScore++;
+      } else {
+        result = `<span class="highlight">Computer wins!</span>`;
+        computerScore++;
+      }
+
+      document.getElementById('results').innerHTML = `
+        You chose: ${gestureIcon(playerChoice)}<br/>
+        Computer chose: ${gestureIcon(computerChoice)}<br/>
+        <strong>${result}</strong>
+      `;
+      document.getElementById('scoreboard').textContent = `Player: ${playerScore} | Computer: ${computerScore}`;
+    }
+
+    function gestureIcon(choice) {
+      switch (choice) {
+        case 'rock': return '✊';
+        case 'paper': return '📄';
+        case 'scissors': return '✂️';
+      }
+    }
+  </script>
+</body>
+</html>
